@@ -198,20 +198,54 @@
 									height="50" style="border-radius: 50%;">
 								<br>
 								<h1 style="font-family: 'Dancing Script', Arial, serif;">Nguyễn Thị Anh Thư</h1>
-								<p>
+								<!-- <p>
 									<small>Facebook: https://www.facebook.com/nguyenthianhthu09 | Gmail :
 										thupvt10a2@gmail.com | Phone : (+84) 386563187 </small>
-								</p>
+								</p> -->
 								<!-- <a href="https://www.facebook.com/nguyenthianhthu09" target="_blank">
 									<img src="/images/anhthu/avatar.jpg" alt="Avatar" class="avatar">
 								</a> -->
 							</div>
+							<div id="image-upload">
+								<!-- <h2>Bộ sưu tập hình ảnh</h2> -->
+								<p>
+									<small>Facebook: https://www.facebook.com/nguyenthianhthu09 | Gmail :
+										thupvt10a2@gmail.com | Phone : (+84) 386563187 </small>
+								</p>
+
+								<!-- Thư viện ảnh hiển thị tối đa 3 ảnh -->
+								<div class="image-gallery" id="gallery"
+									style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+									<img src="/images/anhthu/anh-nen.jpg" alt="Ảnh mặc định 1" style="width: 200px; height: 150px; object-fit: cover; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+									<img src="/images/anhthu/avatar.jpg" alt="Ảnh mặc định 2" style="width: 200px; height: 150px; object-fit: cover; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+									<img src="/images/anhthu/graduation.png" alt="Ảnh mặc định 3" style="width: 200px; height: 150px; object-fit: cover; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+								</div>
+
+								<!-- Nút upload ảnh -->
+								<div class="upload-box"
+									onclick="document.getElementById('upload-input').click()"
+									style="display: inline-block; padding: 15px 25px; background: #fff; border: 2px dashed #999; border-radius: 10px; cursor: pointer; font-size: 18px; color: #333; margin-bottom: 10px;">
+									Upload ảnh
+								</div>
+
+								<!-- Input file ẩn -->
+								<input type="file" id="upload-input" accept="image/*" style="display: none;">
+
+								<!-- Link xem thêm ảnh -->
+								<div style="margin-top: 10px;">
+									<a href="https://drive.google.com/drive/folders/1CDTAzH6DOFtJ2eWLyz9UWOOkSH1cIuu3?usp=drive_link" target="_blank"
+									style="text-decoration: none; font-size: 16px; color: #007bff;">
+									📁 Xem thêm ảnh khác
+									</a>
+								</div>
+							</div>
+
+							<div id="letter-end">Hope to celebrate together</div>
 						</div>
 					</div>
 				</div>
 
 			</div>
-			<p id="letter-end">Hope to celebrate together</p>
 		</div>
 
 	</div>
@@ -220,6 +254,39 @@
 	<!--<div class="gototop js-top">
 	<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 </div>-->
+	<script>
+		const input = document.getElementById('upload-input');
+		const gallery = document.getElementById('gallery');
+
+		input.addEventListener('change', function(event) {
+			const file = event.target.files[0];
+			if (!file) return;
+
+			const reader = new FileReader();
+			reader.onload = function(e) {
+			const img = document.createElement('img');
+			img.src = e.target.result;
+			img.alt = 'Ảnh mới';
+			img.style.width = '200px';
+			img.style.height = '150px';
+			img.style.objectFit = 'cover';
+			img.style.borderRadius = '10px';
+			img.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+
+			// Thêm ảnh mới lên đầu
+			gallery.insertBefore(img, gallery.firstChild);
+
+			// Giữ lại tối đa 3 ảnh hiển thị
+			while (gallery.children.length > 3) {
+				gallery.removeChild(gallery.lastChild);
+			}
+			};
+
+			reader.readAsDataURL(file);
+			input.value = ''; // reset để cho phép chọn lại ảnh cũ
+		});
+	</script>
+
 
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
